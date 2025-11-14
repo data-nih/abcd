@@ -1,222 +1,162 @@
+# Adolescent Brain Cognitive Development (ABCD) Study — Diffusion MRI Derivatives
 
-# **Adolescent Brain Cognitive Development (ABCD) Study**
+The **Adolescent Brain Cognitive Development℠ (ABCD) Study** is the largest long-term study of brain development and child health in the United States.  
+Funded by the **National Institutes of Health (NIH)**, the ABCD Research Consortium includes:
 
-The **Adolescent Brain Cognitive Development (ABCD) Study** is the largest long-term investigation of brain development and child health in the United States.  
-Across **21 research sites**, the study enrolled **11,880 children (ages 9–10)** and follows them into adulthood, combining MRI, behavioral assessments, environmental surveys, and biospecimen-based measures.
+- A **Coordinating Center** (UC San Diego; PIs: Terry Jernigan & Sandra Brown)  
+- A **Data Analysis, Informatics & Resource Center (DAIRC)**  
+- **21 research sites** across the U.S. that together enrolled **11,880 children (ages 9–10)**
 
-This repository distributes **derived diffusion MRI FIB files** for **ABCD Sites 01–22**, prepared using standardized pipelines for tractography and connectome analyses.  
-Raw ABCD data must be obtained through NDA under its Data Use Agreement.
+Participants are followed from late childhood into young adulthood with:
+
+- MRI (structural, diffusion, functional)
+- Cognitive and behavioral assessments
+- Environmental and family-context measures
+- Biospecimen-based measures (genetics, etc.)
+
+Using cutting-edge neuroimaging and deep phenotyping, ABCD examines how real-world experiences  
+(e.g., **sports, videogames, social media, sleep patterns, substance use**) interact with biology to shape:
+
+- Brain structure and connectivity  
+- Social, behavioral, academic, and health outcomes  
+
+The results are intended to inform **families, educators, clinicians, and policymakers** with practical knowledge to support youth well-being and success.
+
+This repository provides **derived diffusion MRI FIB files** for **ABCD sites 01–22**, processed into tractography-ready derivatives for use in **DSI Studio** and related tools.
+
+> **Raw ABCD data are *not* redistributed here.**  
+> Access to original data (DICOM / NIfTI / full phenotypes) must follow ABCD’s NDA-based data-sharing policies.
 
 ---
 
-## **License**
+## License
 
-Derived FIB files are shared under the **CC BY-SA 4.0** license.  
-If using these derivatives, please acknowledge:
+The derived FIB files in this repository are shared under the  
+**Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)**.
 
-> “This work used XSEDE/ACCESS computing resources: TG-CIS200026 & MED230052.”
+If you use these data, please acknowledge:
+
+> “This work used XSEDE/ACCESS computing resources: **TG-CIS200026** & **MED230052**.”
+
+You should also follow the ABCD Study’s citation guidance, e.g.:
+
+> “Source: **Adolescent Brain Cognitive Development℠ (ABCD) Study**.”
 
 ---
 
-# **Download Commands (Linux/macOS and Windows)**
+## ABCD Consortium and Study Sites
 
-Below are commands for all **ABCD Site 01 → Site 22** releases.
+The ABCD Research Consortium consists of a Coordinating Center, DAIRC, and **21 study sites**, including:
 
-Release tags follow the format:
+- **Children’s Hospital Los Angeles**  
+- **Florida International University**  
+- **Laureate Institute for Brain Research (LIBR)**  
+- **Medical University of South Carolina**  
+- **Oregon Health & Science University**  
+- **SRI International**  
+- **UC San Diego**  
+- **UCLA**  
+- **University of Colorado Boulder**  
+- **University of Florida**  
+- **University of Maryland, Baltimore**  
+- **University of Michigan**  
+- **University of Minnesota**  
+- **University of Pittsburgh**  
+- **University of Rochester**  
+- **University of Utah**  
+- **University of Vermont**  
+- **University of Wisconsin–Milwaukee**  
+- **Virginia Commonwealth University**  
+- **Washington University in St. Louis**  
+- **Yale University**
 
-```
+Each site contributes to the nationwide sample with harmonized MRI protocols and coordinated behavioral/clinical assessments.
 
-abcd-site01
-abcd-site02
-...
-abcd-site22
+The **ABCD Study®, Teen Brains. Today’s Science. Brighter Future.®** and related marks are registered or service marks of the  
+**U.S. Department of Health & Human Services (HHS)**.
 
+---
+
+## Dataset in This Repository
+
+This repository contains **derived diffusion MRI FIB datasets** organized by site-level tags:
+
+- `abcd-site01`
+- `abcd-site02`  
+- …  
+- `abcd-site22`
+
+Each tag corresponds to one or more ABCD sites or batches of participants, processed with a consistent DSI Studio workflow.
+
+---
+
+## Download All ABCD Site Datasets
+
+The commands below will download **all 22 site releases** (`abcd-site01` … `abcd-site22`) from the GitHub API.
+
+> **Note:**  
+> - Make sure `curl` and `jq` are installed for Linux/macOS.  
+> - On Windows, use **PowerShell 5.x** or newer.  
+> - Run these commands in the directory where you want the files saved.
+
+---
+
+### Linux / macOS — bash
+
+This loop will iterate over `abcd-site01` to `abcd-site22` and download all associated assets:
+
+```bash
+for i in $(seq -w 1 22); do
+  curl -s "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site$i" \
+    | jq -r '.assets[].browser_download_url' \
+    | xargs -n1 -P4 curl -LO
+done
 ````
 
----
-
-# **Linux / macOS — bash**
-
-Each command downloads one ABCD site using GitHub’s API + jq + curl:
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site01 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-````
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site02 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site03 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site04 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site05 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site06 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site07 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site08 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site09 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site10 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site11 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site12 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site13 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site14 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site15 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site16 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site17 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site18 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site19 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site20 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site21 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
-
-```bash
-curl -s https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site22 | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
-```
+* `seq -w 1 22` generates `01 02 ... 22` (zero-padded)
+* `jq` extracts each asset’s `browser_download_url`
+* `xargs -P4` downloads multiple files in parallel (adjust `-P` if needed)
 
 ---
 
-# **Windows PowerShell 5.x**
+### Windows — PowerShell 5.x
 
-Each one-line PowerShell command downloads a specific ABCD site.
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site01").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+In **File Explorer**, go to your target folder, click the address bar, type `powershell`, and press **Enter**.
+Then run:
 
 ```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site02").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
+1..22 | ForEach-Object {
+  (Invoke-RestMethod ("https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site{0:D2}" -f $_)).assets |
+    ForEach-Object {
+      Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf)
+    }
+}
 ```
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site03").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+This:
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site04").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+* Loops over site indices `1..22`
+* Formats each tag as `abcd-site01`, `abcd-site02`, …, `abcd-site22`
+* Uses `Invoke-RestMethod` to query the GitHub Release API
+* Downloads each asset to the current directory with its original filename
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site05").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+---
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site06").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+## Notes and Responsibilities
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site07").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+* This repository **does not** host original ABCD DICOM or full phenotypic data.
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site08").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+* All analyses must comply with:
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site09").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+  * **ABCD data-use agreements** via NDA
+  * **Institutional review board (IRB)** and local data-governance policies
+  * **ABCD Study®** citation and trademark guidance
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site10").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+* Derived FIB files are provided to **accelerate tractography and connectomics** research; users remain responsible for:
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site11").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+  * Appropriate QC of diffusion data and derivatives
+  * Correct modeling and statistical practices
+  * Respecting participant privacy and confidentiality in all outputs
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site12").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
+If you build tools, atlases, or publications using these derivatives, consider sharing them back with the community to extend the impact of the **ABCD Study℠**.
 
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site13").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site14").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site15").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site16").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site17").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site18").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site19").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site20").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site21").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
-
-```powershell
-(Invoke-RestMethod "https://api.github.com/repos/data-nih/abcd/releases/tags/abcd-site22").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
-```
